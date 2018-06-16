@@ -2,6 +2,8 @@ package project;
 
 import java.util.Random;
 import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Main {
     
@@ -9,11 +11,24 @@ public class Main {
     
     public int[] generate() {
         int[] result = new int[6];
-        for (int i = 0; i < 6; i++) {
-            result[i] = random.nextInt(45) + 1;
+        int index = 0;
+        Set<Integer> generated = new HashSet<>();
+        
+        while (generated.size() < 6) {
+            int num = random.nextInt(45) + 1;
+            
+            /*생성된 목록에 포함되어 있지 않으면 추가*/
+            if (!contains(generated, num)) {
+                result[index++] = num;
+                generated.add(num);
+            }
         }
         
         return result;
+    }
+    
+    boolean contains(Set<Integer> generated, int num) {
+        return generated.contains(num);
     }
 
     /**
